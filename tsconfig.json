@@ -2,6 +2,16 @@
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+    { "path": "./tsconfig.node.json" },
+  ],
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@admin-app/*": ["app/*"],
+      "@admin-shared/*": ["shared/*"],
+      "@admin-entities/*": ["entities/*"],
+      "@admin-features/*": ["features/*"],
+      "@admin-pages/*": ["pages/*"],
+    }
+  }
 }
