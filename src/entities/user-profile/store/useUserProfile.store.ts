@@ -15,7 +15,7 @@ export type UserProfileStore = {
 
 export const useUserProfileStore = create<UserProfileStore>((set) => ({
   user: null,
-  status: ProfileLoadStatusValue.LOGGED_OUT,
+  status: ProfileLoadStatusValue.AUTHORIZED,
   setUser: (user) => set({ user }),
   setStatus: (status) => set({ status }),
   reset: () =>
