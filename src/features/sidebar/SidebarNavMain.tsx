@@ -49,7 +49,7 @@ export const SidebarNavMain = ({ items }: NavMainProps) => (
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton tooltip={item.label}>
                     {item.icon && <item.icon size={16} />}
-                    <span className="truncate overflow-hidden text-ellipsis whitespace-nowrap">
+                    <span className="truncate overflow-hidden text-ellipsis whitespace-nowrap text-base">
                       {item.label}
                     </span>
                     <ChevronRightIcon className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -76,7 +76,7 @@ export const SidebarNavMain = ({ items }: NavMainProps) => (
             <SidebarMenuButton tooltip={item.label}>
               <Link to={item.path} className="flex gap-2 items-center">
                 {item.icon && <item.icon size={16} />}
-                <span>{item.label}</span>
+                <span className='text-base'>{item.label}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuSubItem>

@@ -1,3 +1,4 @@
+import { Header } from '@features/header/Header';
 import { Sidebar } from '@features/sidebar';
 // import { Breadcrumbs } from '@admin-features/breadcrumbs';
 
@@ -7,8 +8,8 @@ import { Outlet } from 'react-router-dom';
 export const AuthenticatedLayout = () => (
   <SidebarProvider>
     <Sidebar />
-    <main className="p-4 flex flex-col flex-auto">
-      {/* <Breadcrumbs /> */}
+    <main className="flex flex-col flex-auto w-[calc(100vw-256px)]">
+      <Header />
       <Outlet />
     </main>
   </SidebarProvider>

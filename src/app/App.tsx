@@ -5,6 +5,7 @@ import '@shared/services/env';
 import { Toaster } from '@shared/shadcn-ui';
 import { GuardAuthentication } from './GuardAuthentication';
 import { Routes } from './Routes';
+import { ThemeProvider } from '@shared/providers/theme.provider';
 
 function App() {
   // useEffect(() => {
@@ -13,13 +14,15 @@ function App() {
 
   return (
     <QueryClientProvider>
-      <Suspense fallback={<Preloader />}>
-        <GuardAuthentication>
-          <Routes />
-        </GuardAuthentication>
-      </Suspense>
+      <ThemeProvider>
+        <Suspense fallback={<Preloader />}>
+          <GuardAuthentication>
+            <Routes />
+          </GuardAuthentication>
+        </Suspense>
 
-      <Toaster />
+        <Toaster />
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
