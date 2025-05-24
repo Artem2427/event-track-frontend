@@ -12,6 +12,9 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
+  console.log(storageService.get(ACCESS_TOKEN_KEY), 'access-token');
+  console.log(localStorage.getItem(ACCESS_TOKEN_KEY));
+
   config.headers.Authorization = `Bearer ${storageService.get(ACCESS_TOKEN_KEY)}`;
   return config;
 });
@@ -29,7 +32,6 @@ api.interceptors.response.use(
         //     refreshToken: Cookies.get('refresh-token'),
         //   },
         // );
-
         // if (res.data) {
         // Cookies.set('access-token', res.data.accessToken, {
         //   secure: true,
@@ -37,8 +39,7 @@ api.interceptors.response.use(
         // });
         // Cookies.set('refresh-token', res.data.refreshToken);
         // }
-
-        return api.request(error.config);
+        // return api.request(error.config);
       } catch (refreshError) {
         // Cookies.remove('access-token');
         storageService.remove(ACCESS_TOKEN_KEY);

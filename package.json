@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "interface": "i18next-resources-for-ts interface -i ./public/locales/en -o ./src/@types/resources.d.ts"
+    "update:translations": "i18next-resources-for-ts interface -i ./public/locales/en -o ./src/@types/resources.d.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",

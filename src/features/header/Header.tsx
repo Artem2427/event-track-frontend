@@ -1,15 +1,19 @@
 import React from 'react';
+import { ProfileLoadStatusValue } from '@entities/user-profile/model';
+import { useUserProfileStore } from '@entities/user-profile/store';
+import { useTheme } from '@shared/providers/theme.provider';
 import { ROUTE_PATHS, ROUTE_TITLES, type RouteKey } from '@shared/utils/routes';
 import { useLocation } from 'react-router-dom';
-import { useHasRole } from '@entities/user-profile/hooks';
-import { useUserProfileStore } from '@entities/user-profile/store';
-import { ProfileLoadStatusValue } from '@entities/user-profile/model';
-import { ThemeSwitcher } from './ThemeSwitcher';
 import { AvatarDropdown } from './AvatarDropdown';
 import LanguageSwitcher from './LanguageSwitcher';
+import { ThemeSwitcher } from './ThemeSwitcher';
+import DarkLogoSrc from '/dark-logo.svg';
+import LightLogoSrc from '/light-logo.svg';
 
 export const Header = React.memo(() => {
   const location = useLocation();
+  const { theme } = useTheme();
+
   const pathSegments = location.pathname.split('/').filter(Boolean);
   const { status } = useUserProfileStore();
 
@@ -32,17 +36,29 @@ export const Header = React.memo(() => {
     ];
   }, [pathSegments]);
 
-  const isAuthentificated = status === ProfileLoadStatusValue.AUTHORIZED;
+  const isAuthenticated = status === ProfileLoadStatusValue.AUTHORIZED;
 
   return (
-    <div className="p-4 w-full bg-sidebar h-16 flex justify-between items-center">
-        {pageName[0].label}
-        <div className="flex gap-4">
-            <LanguageSwitcher />
-            <ThemeSwitcher />
-            {isAuthentificated && (
-                <AvatarDropdown />
-            )}
+    <div className="sticky top-0 z-50 p-4 w-full bg-sidebar h-16 flex justify-between items-center">
+      {isAuthenticated ? (
+        pageName[0].label
+      ) : (
+        <div className="flex items-center">
+          <img
+            src={theme === 'dark' ? DarkLogoSrc : LightLogoSrc}
+            className="logo h-16"
+            alt="Vite logo"
+          />
+          <span className="text-sidebar-foreground text-2xl font-semibold">
+            Events track
+          </span>
         </div>
-    </div>);
+      )}
+      <div className="flex gap-4">
+        <LanguageSwitcher />
+        <ThemeSwitcher />
+        {isAuthenticated && <AvatarDropdown />}
+      </div>
+    </div>
+  );
 });

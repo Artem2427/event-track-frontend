@@ -1,3 +1,51 @@
 {
-  "login": "Логін форма"
+  "loginTitle": "Увійти",
+  "loginButton": "Увійти",
+  "loginPlaceholderEmail": "m@example.com",
+  "loginPlaceholderPassword": "Ваш пароль",
+  "loginSuccess": "Ви успішно увійшли!",
+  "loginError": "Щось пішло не так!",
+  "noAccount": "Ще не маєте акаунта?",
+  "createAccount": "Створити",
+
+  "signUpTitle": "Реєстрація",
+  "signUpFirstName": "Ім’я",
+  "signUpFirstNamePlaceholder": "Іван",
+  "signUpLastName": "Прізвище",
+  "signUpLastNamePlaceholder": "Шевченко",
+  "signUpSuccess": "Реєстрація пройшла успішно!",
+  "signUpError": "Щось пішло не так під час реєстрації!",
+  "signUpButton": "Створити акаунт",
+  "alreadyHaveAccount": "Вже маєте акаунт?",
+  "logInLink": "Увійти",
+
+  "validation": {
+    "firstName": {
+      "required": "Ім’я є обов’язковим",
+      "max": "Ім’я повинно містити не більше 200 символів"
+    },
+    "lastName": {
+      "required": "Прізвище є обов’язковим",
+      "max": "Прізвище повинно містити не більше 200 символів"
+    },
+    "email": {
+      "required": "Email є обов'язковим",
+      "invalid": "Невірна адреса електронної пошти",
+      "tooLong": "Email надто довгий",
+      "max": "Електронна пошта повинна містити не більше 256 символів"
+    },
+    "password": {
+      "required": "Пароль є обов'язковим",
+      "tooLong": "Пароль надто довгий",
+      "min": "Пароль повинен містити щонайменше 5 символів",
+      "max": "Пароль надто довгий"
+    }
+  },
+
+  "errors": {
+    "auth": {
+      "invalid-credentials": "Не правильний email або пароль",
+      "email-is-already-taken": "Email уже використовується"
+    }
+  }
 }

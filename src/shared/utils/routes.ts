@@ -1,19 +1,19 @@
 export const ROUTE_PATHS = {
   HOME: '/',
   LOGIN: '/login',
-  REGISTRATION: '/registration',
+  SIGN_UP: '/sign-up',
 } as const;
 
 export const ROUTE_KEYS = {
   HOME: 'home',
   LOGIN: 'login',
-  REGISTRATION: 'registration',
+  SIGN_UP: 'sign-up',
 } as const;
 
 export const ROUTE_TITLES: Record<RouteKey, string> = {
   [ROUTE_KEYS.HOME]: 'All events',
   [ROUTE_KEYS.LOGIN]: 'Login',
-  [ROUTE_KEYS.REGISTRATION]: 'Registration',
+  [ROUTE_KEYS.SIGN_UP]: 'Sign Up',
 };
 
 export type RouteKey = (typeof ROUTE_KEYS)[keyof typeof ROUTE_KEYS];

@@ -1,31 +1,17 @@
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
+import { LoginForm } from './login-form/LoginForm';
 
 const LoginPage = () => {
-  const { t, i18n } = useTranslation('translations');
+  // const { t, i18n } = useTranslation('translations');
 
-  const lngs: any = {
-    en: { nativeName: 'English' },
-    uk: { nativeName: 'Українська' },
-  };
+  // const lngs: any = {
+  //   en: { nativeName: 'English' },
+  //   uk: { nativeName: 'Українська' },
+  // };
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center bg-white">
-      <div className="flex flex-col gap-8 max-w-[412px] w-full justify-center items-center px-[26px]">
-        {t('login')}
-      </div>
-
-      <div>
-        {Object.keys(lngs).map((lng: any) => (
-          <button
-            type="submit"
-            key={lng}
-            onClick={() => i18n.changeLanguage(lng)}
-            disabled={i18n.resolvedLanguage === lng}
-          >
-            {lngs[lng].nativeName}
-          </button>
-        ))}
-      </div>
+    <div className="h-[calc(100vh-64px)] w-screen flex items-center justify-center bg-background">
+      <LoginForm />
     </div>
   );
 };
