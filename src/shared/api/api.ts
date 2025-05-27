@@ -4,7 +4,7 @@ import { ACCESS_TOKEN_KEY } from '@shared/utils/constants';
 import axios, { type AxiosError } from 'axios';
 
 export const api = axios.create({
-  baseURL: AppEnvironmentService.apiUrl,
+  baseURL: `${AppEnvironmentService.apiUrl}/api`,
   responseType: 'json',
   headers: {
     'Content-Type': 'application/json',

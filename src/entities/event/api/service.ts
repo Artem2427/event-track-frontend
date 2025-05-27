@@ -1,8 +1,8 @@
 import { api } from '@shared/api';
-import type { EventsQueryParams } from '../model';
+import type { EventType, EventsQueryParams } from '../model';
 
 class EventService {
-  async getAllEvents(queryParams: EventsQueryParams): Promise<Event[]> {
+  async getAllEvents(queryParams: EventsQueryParams): Promise<EventType[]> {
     const res = await api.get(
       `/event?startDate=${queryParams.startDate}&endDate=${queryParams.endDate}&search=${queryParams.search}`,
     );

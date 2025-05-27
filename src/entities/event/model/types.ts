@@ -6,7 +6,7 @@ export type EventsQueryParams = {
   search: string;
 };
 
-export type Event = {
+export type EventType = {
   id: string;
   createdAt: string;
   updatedAt: string;
