@@ -46,6 +46,17 @@
     "auth": {
       "invalid-credentials": "Не правильний email або пароль",
       "email-is-already-taken": "Email уже використовується"
+    },
+    "noEventsFound": "Події не знайдено"
+  },
+
+  "header": {
+    "pageNames": {
+      "allEvents": "Всі події",
+      "myEvents": "Мої події"
     }
-  }
+  },
+
+  "searchTitle": "Пошук по назві або опису",
+  "datePickerPlaceholder": "оберіть дату"
 }

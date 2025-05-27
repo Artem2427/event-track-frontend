@@ -44,8 +44,17 @@ interface Resources {
       "auth": {
         "invalid-credentials": "Invalid email or password",
         "email-is-already-taken": "Email is already taken"
+      },
+      "noEventsFound": "No events found"
+    },
+    "header": {
+      "pageNames": {
+        "allEvents": "All events",
+        "myEvents": "My events"
       }
-    }
+    },
+    "searchTitle": "Search by title or description",
+    "datePickerPlaceholder": "Pick a date"
   }
 }
 

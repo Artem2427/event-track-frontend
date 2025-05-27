@@ -9,10 +9,13 @@ import LanguageSwitcher from './LanguageSwitcher';
 import { ThemeSwitcher } from './ThemeSwitcher';
 import DarkLogoSrc from '/dark-logo.svg';
 import LightLogoSrc from '/light-logo.svg';
+import { useTranslation } from 'react-i18next';
 
 export const Header = React.memo(() => {
   const location = useLocation();
   const { theme } = useTheme();
+
+  const { t } = useTranslation('translations');
 
   const pathSegments = location.pathname.split('/').filter(Boolean);
   const { status } = useUserProfileStore();
@@ -30,7 +33,7 @@ export const Header = React.memo(() => {
     return [
       {
         path: ROUTE_PATHS.HOME,
-        label: ROUTE_TITLES.home,
+        label: t('header.pageNames.allEvents'),
       },
       ...dynamicBreadcrumbs,
     ];
@@ -40,7 +43,7 @@ export const Header = React.memo(() => {
 
   return (
     <div className="sticky top-0 z-50 p-4 w-full bg-sidebar h-16 flex justify-between items-center">
-      {isAuthenticated ? (
+      {!isAuthenticated ? (
         pageName[0].label
       ) : (
         <div className="flex items-center">

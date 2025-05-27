@@ -4,8 +4,10 @@ import { DateRangePicker } from '@shared/custom-ui';
 import { sharedHooks } from '@shared/hooks';
 import { Input, Spinner } from '@shared/shadcn-ui';
 import { type DateRange } from 'react-day-picker';
+import { useTranslation } from 'react-i18next';
 
 const EventList = () => {
+  const { t } = useTranslation('translations');
   const [searchValue, setSearchValue] = useState('');
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
 
@@ -25,7 +27,7 @@ const EventList = () => {
       <div className="flex flex-col md:flex-row gap-4 justify-start items-start w-full">
         <Input
           type="search"
-          placeholder="Search by title or description"
+          placeholder={t('searchTitle')}
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
           className="w-full md:max-w-[400px]"
@@ -39,7 +41,7 @@ const EventList = () => {
         </div>
       )}
       {events?.length === 0 && !isLoadingWithMinDelay && (
-        <p>No events found.</p>
+        <p>{t('errors.noEventsFound')}</p>
       )}
 
       {events?.length !== 0 && !isLoadingWithMinDelay && (
