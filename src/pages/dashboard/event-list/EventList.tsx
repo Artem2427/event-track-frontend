@@ -6,10 +6,12 @@ import { DateRangePicker } from '@shared/custom-ui';
 import { sharedHooks } from '@shared/hooks';
 import { Button, Input, Spinner } from '@shared/shadcn-ui';
 import { type DateRange } from 'react-day-picker';
+import { useTranslation } from 'react-i18next';
 import CreateEventModal from '../create-event/CreateEventModal';
 import { EventCard } from './EventCard';
 
 const EventList = () => {
+  const { t } = useTranslation('translations');
   const [searchValue, setSearchValue] = useState('');
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
 
@@ -41,7 +43,7 @@ const EventList = () => {
           </label>
           <Input
             type="search"
-            placeholder="Search by title or description"
+            placeholder={t('searchTitle')}
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             className="w-full"
@@ -79,7 +81,7 @@ const EventList = () => {
       {/* No Results */}
       {!isLoadingWithMinDelay && events?.length === 0 && (
         <div className="text-center text-muted-foreground mt-10">
-          <p className="text-lg">No events found.</p>
+          <p className="text-lg">{t('errors.noEventsFound')}</p>
         </div>
       )}
 

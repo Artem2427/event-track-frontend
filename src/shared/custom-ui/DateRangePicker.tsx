@@ -10,6 +10,8 @@ import clsx from 'clsx';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { type DateRange } from 'react-day-picker';
+import { useTranslation } from 'react-i18next';
+import { uk, enUS } from 'date-fns/locale';
 
 type Props = {
   className?: string;
@@ -19,15 +21,18 @@ type Props = {
   isOpen?: boolean;
 };
 
-const formatDateRange = (from?: Date, to?: Date) => {
-  if (!from) return 'Pick a date';
-  if (to)
-    return `${format(from, 'dd MMMM yyyy')} - ${format(to, 'dd MMMM yyyy')}`;
-  return format(from, 'dd MMMM yyyy');
-};
+
 
 export const DateRangePicker = (props: Props) => {
   const { setDate, align, className, date, isOpen } = props;
+  const { t, i18n } = useTranslation('translations');
+
+  const formatDateRange = (from?: Date, to?: Date) => {
+    if (!from) return t('datePickerPlaceholder');
+    if (to)
+      return `${format(from, 'dd MMMM yyyy')} - ${format(to, 'dd MMMM yyyy')}`;
+    return format(from, 'dd MMMM yyyy');
+  };
 
   return (
     <div className={clsx('grid gap-2', className)}>
@@ -75,6 +80,7 @@ export const DateRangePicker = (props: Props) => {
               selected={date}
               onSelect={setDate}
               numberOfMonths={2}
+              locale={i18n.resolvedLanguage === 'en' ? enUS : uk}
             />
           </PopoverContent>
         </Popover>

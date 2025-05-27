@@ -11,7 +11,7 @@ export const ROUTE_KEYS = {
 } as const;
 
 export const ROUTE_TITLES: Record<RouteKey, string> = {
-  [ROUTE_KEYS.HOME]: 'All events',
+  [ROUTE_KEYS.HOME]: 'header.pageNames.allEvents',
   [ROUTE_KEYS.LOGIN]: 'Login',
   [ROUTE_KEYS.SIGN_UP]: 'Sign Up',
 };

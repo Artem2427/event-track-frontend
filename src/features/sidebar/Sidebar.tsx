@@ -11,23 +11,30 @@ import {
   Heart,
   MapPinned,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 // import { sharedStores } from '@admin-shared/stores';
 import { type NavMainProps, SidebarNavMain } from './SidebarNavMain';
 import LightLogoSrc from '/light-logo.svg';
 import DarkLogoSrc from '/dark-logo.svg';
 import { useTheme } from '@shared/providers/theme.provider';
+import { useTranslation } from 'react-i18next';
 
 // import { SidebarNavUser } from './SidebarNavUser';
 
-const menuItems: NavMainProps['items'] = [
-  { label: 'All events', icon: MapPinned, type: 'link', path: '/' },
-  { label: 'My events', icon: Heart, type: 'link', path: '/my-events' },
-];
+
 
 export const Sidebar = ({
   ...props
 }: React.ComponentProps<typeof SidebarBase>) => {
+  const { t } = useTranslation('translations');
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  const menuItems: NavMainProps['items'] = [
+    { label: t('header.pageNames.allEvents'), icon: MapPinned, type: 'link', path: '/' },
+    { label: t('header.pageNames.myEvents'), icon: Heart, type: 'link', path: '/my-events' },
+  ];
+
   // const { basicData } = sharedStores.profileBasicInfoStore;
 
   const { theme } = useTheme();
