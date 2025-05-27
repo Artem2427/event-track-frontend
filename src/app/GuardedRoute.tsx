@@ -8,15 +8,15 @@ export const GuardedRoute = () => {
   const { status } = useUserProfileStore();
   const location = useLocation();
 
-  // if (status === ProfileLoadStatusValue.PENDING) {
-  //   return <Preloader />;
-  // }
+  if (status === ProfileLoadStatusValue.PENDING) {
+    return <Preloader />;
+  }
 
-  // if (status !== ProfileLoadStatusValue.AUTHORIZED) {
-  //   return (
-  //     <Navigate to={ROUTE_PATHS.LOGIN} state={{ from: location }} replace />
-  //   );
-  // }
+  if (status !== ProfileLoadStatusValue.AUTHORIZED) {
+    return (
+      <Navigate to={ROUTE_PATHS.LOGIN} state={{ from: location }} replace />
+    );
+  }
 
   return <Outlet />;
 };

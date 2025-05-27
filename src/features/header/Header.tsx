@@ -3,13 +3,13 @@ import { ProfileLoadStatusValue } from '@entities/user-profile/model';
 import { useUserProfileStore } from '@entities/user-profile/store';
 import { useTheme } from '@shared/providers/theme.provider';
 import { ROUTE_PATHS, ROUTE_TITLES, type RouteKey } from '@shared/utils/routes';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { AvatarDropdown } from './AvatarDropdown';
 import LanguageSwitcher from './LanguageSwitcher';
 import { ThemeSwitcher } from './ThemeSwitcher';
 import DarkLogoSrc from '/dark-logo.svg';
 import LightLogoSrc from '/light-logo.svg';
-import { useTranslation } from 'react-i18next';
 
 export const Header = React.memo(() => {
   const location = useLocation();
@@ -43,7 +43,7 @@ export const Header = React.memo(() => {
 
   return (
     <div className="sticky top-0 z-50 p-4 w-full bg-sidebar h-16 flex justify-between items-center">
-      {!isAuthenticated ? (
+      {isAuthenticated ? (
         pageName[0].label
       ) : (
         <div className="flex items-center">
