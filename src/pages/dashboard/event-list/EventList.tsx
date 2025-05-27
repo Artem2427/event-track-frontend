@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { eventHooks } from '@entities/event/hooks';
+import { WithRole } from '@entities/user-profile/hooks';
+import { UserRolesEnumValue } from '@entities/user-profile/model';
 import { DateRangePicker } from '@shared/custom-ui';
 import { sharedHooks } from '@shared/hooks';
-import { Input, Spinner } from '@shared/shadcn-ui';
+import { Button, Input, Spinner } from '@shared/shadcn-ui';
 import { type DateRange } from 'react-day-picker';
 import { useTranslation } from 'react-i18next';
+import CreateEventModal from '../create-event/CreateEventModal';
+import { EventCard } from './EventCard';
 
 const EventList = () => {
   const { t } = useTranslation('translations');
@@ -19,55 +23,80 @@ const EventList = () => {
     endDate: dateRange?.to ? dateRange.to.toISOString() : '',
   });
 
+  const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
+
   const isLoadingWithMinDelay =
     sharedHooks.useLoadingWithMinDisplayTime(isLoading);
 
+  const handleClearFilters = () => {
+    setDateRange(undefined);
+    setSearchValue('');
+  };
+
   return (
-    <div className="py-6 w-full">
-      <div className="flex flex-col md:flex-row gap-4 justify-start items-start w-full">
-        <Input
-          type="search"
-          placeholder={t('searchTitle')}
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          className="w-full md:max-w-[400px]"
-        />
-        <DateRangePicker date={dateRange} setDate={setDateRange} className="" />
+    <section className="py-8 px-4 w-full">
+      {/* Filters */}
+      <div className="flex flex-col md:flex-row md:items-end gap-4 mb-6">
+        <div className="w-[340px]">
+          <label className="block text-sm font-medium mb-1 text-muted-foreground">
+            Search
+          </label>
+          <Input
+            type="search"
+            placeholder={t('searchTitle')}
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            className="w-full"
+          />
+        </div>
+        <div className="w-full md:w-auto">
+          <label className="block text-sm font-medium mb-1 text-muted-foreground">
+            Date Range
+          </label>
+          <DateRangePicker
+            date={dateRange}
+            setDate={setDateRange}
+            className="w-[340px]"
+          />
+        </div>
+
+        <Button onClick={handleClearFilters}>Clear</Button>
+
+        <WithRole roles={UserRolesEnumValue.Admin}>
+          <div className="ml-auto">
+            <Button onClick={() => setIsOpenCreateModal(true)}>
+              Create Event
+            </Button>
+          </div>
+        </WithRole>
       </div>
 
+      {/* Loading */}
       {isLoadingWithMinDelay && (
-        <div className="flex items-center justify-center min-h-[calc(100vh_-_180px)]">
+        <div className="flex items-center justify-center min-h-[calc(100vh-280px)]">
           <Spinner size="large" />
         </div>
       )}
-      {events?.length === 0 && !isLoadingWithMinDelay && (
-        <p>{t('errors.noEventsFound')}</p>
+
+      {/* No Results */}
+      {!isLoadingWithMinDelay && events?.length === 0 && (
+        <div className="text-center text-muted-foreground mt-10">
+          <p className="text-lg">{t('errors.noEventsFound')}</p>
+        </div>
       )}
 
-      {events?.length !== 0 && !isLoadingWithMinDelay && (
-        <div className="text-blue-600">{events?.length} - count</div>
+      {/* Event Grid */}
+      {!isLoadingWithMinDelay && events?.length !== 0 && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {events?.map((event) => <EventCard key={event.id} event={event} />)}
+        </div>
       )}
 
-      {/* <ul className="space-y-4">
-        {events?.map((event) => (
-          <li
-            key={event.id}
-            className="p-4 border rounded shadow-sm bg-background w-full"
-          >
-            <h3 className="font-semibold text-xl mb-1">{event.title}</h3>
-            {event.description && (
-              <p className="text-sm text-muted-foreground mb-2">
-                {event.description}
-              </p>
-            )}
-            <p className="text-sm font-medium">
-              {new Date(event.startDate).toLocaleString()} —{' '}
-              {new Date(event.endDate).toLocaleString()}
-            </p>
-          </li>
-        ))}
-      </ul> */}
-    </div>
+      <CreateEventModal
+        open={isOpenCreateModal}
+        onClose={() => setIsOpenCreateModal(false)}
+      />
+    </section>
   );
 };
 

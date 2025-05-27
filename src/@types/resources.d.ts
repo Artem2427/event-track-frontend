@@ -38,6 +38,28 @@ interface Resources {
         "tooLong": "Password is too long",
         "min": "Password must be at least 5 characters",
         "max": "Password is too long"
+      },
+      "title": {
+        "required": "Title is required",
+        "max": "Title must be at most 255 characters"
+      },
+      "location": {
+        "max": "Location must be at most 255 characters"
+      },
+      "startDate": {
+        "required": "Start date is required"
+      },
+      "endDate": {
+        "required": "End date is required"
+      },
+      "maxParticipants": {
+        "min": "Max participants must be at least 1"
+      },
+      "minParticipants": {
+        "min": "Min participants must be at least 1"
+      },
+      "price": {
+        "min": "Price must be a non-negative number"
       }
     },
     "errors": {
