@@ -20,7 +20,7 @@ export const PublicLayout = () => {
   }
 
   return (
-    <main className="h-screen flex flex-col items-center justify-center bg-background">
+    <main className="h-screen flex flex-col items-center justify-center bg-background overflow-y-auto">
       <Header />
       <Outlet />
     </main>

@@ -4,7 +4,6 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarRail,
 } from '@shared/shadcn-ui';
 import { ROUTE_PATHS } from '@shared/utils/routes';
 import {
@@ -31,8 +30,8 @@ export const Sidebar = ({
   const currentPath = location.pathname;
 
   const menuItems: NavMainProps['items'] = [
-    { label: t('header.pageNames.allEvents'), icon: MapPinned, type: 'link', path: '/' },
-    { label: t('header.pageNames.myEvents'), icon: Heart, type: 'link', path: '/my-events' },
+    { label: t('header.pageNames.allEvents'), icon: MapPinned, type: 'link', path: ROUTE_PATHS.HOME },
+    { label: t('header.pageNames.myEvents'), icon: Heart, type: 'link', path: ROUTE_PATHS.MYEVENTS },
   ];
 
   // const { basicData } = sharedStores.profileBasicInfoStore;

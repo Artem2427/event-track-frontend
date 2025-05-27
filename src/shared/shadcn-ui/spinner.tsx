@@ -1,4 +1,5 @@
 import { Loader as LoaderIcon } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const sizeMap = {
   small: { spinner: 'size-4', text: 'text-xs' },
@@ -11,11 +12,12 @@ type SpinnerProps = {
 };
 
 export const Spinner = ({ size }: SpinnerProps) => {
+  const { t } = useTranslation('translations');
   return (
     <div className="flex flex-col gap-2 items-center justify-center">
       <LoaderIcon className={`animate-spin ${sizeMap[size].spinner}`} />
       <span className={`text-muted-foreground ${sizeMap[size].text}`}>
-        Loading...
+        {t('loadingLabel')}
       </span>
     </div>
   );

@@ -11,13 +11,20 @@ import {
 } from '@shared/shadcn-ui';
 import { ChevronDown as ChevronDownIcon } from 'lucide-react';
 import { UserMock } from '../../mock/UserMock';
+import { ROUTE_PATHS } from '@shared/utils/routes';
+import { Link } from 'react-router-dom';
+import { useUserProfileStore } from '@entities/user-profile/store';
+import { ProfileLoadStatusValue } from '@entities/user-profile/model';
+import { useTranslation } from 'react-i18next';
 
 export const AvatarDropdown = React.memo(() => {
+  const { t } = useTranslation('translations');
   const options = [
-    { label: 'Profile', value: 'profile' },
-    { label: 'Settings', value: 'settings' },
-    { label: 'Logout', value: 'logout' },
+    { label: t('header.pageNames.profile'), value: 'profile', path: ROUTE_PATHS.PROFILE },
+    { label: t('logout'), value: 'logout', path: ROUTE_PATHS.LOGIN },
   ];
+
+  const { setStatus } = useUserProfileStore();
 
   return (
     <DropdownMenu>
@@ -43,12 +50,17 @@ export const AvatarDropdown = React.memo(() => {
 
       <DropdownMenuContent align="end" className="w-[200px]">
         {options.map((item) => (
-          <DropdownMenuItem
-            key={item.value}
-            // onClick={() => onSelect?.(item.value)}
-          >
-            {item.label}
-          </DropdownMenuItem>
+          <Link to={item.path}>
+            <DropdownMenuItem
+              key={item.value}
+              onClick={item.path === ROUTE_PATHS.LOGIN ? 
+                () => setStatus(ProfileLoadStatusValue.LOGGED_OUT) : () => {}
+              }
+              // onClick={() => onSelect?.(item.value)}
+            >
+              {item.label}
+            </DropdownMenuItem>
+          </Link>
         ))}
       </DropdownMenuContent>
     </DropdownMenu>

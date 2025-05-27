@@ -75,10 +75,26 @@
   "header": {
     "pageNames": {
       "allEvents": "Всі події",
-      "myEvents": "Мої події"
+      "myEvents": "Мої події",
+      "profile": "Профіль"
     }
   },
 
   "searchTitle": "Пошук по назві або опису",
-  "datePickerPlaceholder": "оберіть дату"
+  "datePickerPlaceholder": "Оберіть дату",
+
+  "userFields": {
+    "firstName": "Ім`я",
+    "lastName": "Прізвище",
+    "email": "Пошта",
+    "phone": "Номер телефону",
+    "role": "Роль"
+  },
+
+  "logout": "Вихід",
+  "search": "Пошук",
+  "dateRange": "Дата",
+  "createEvent": "Створити подію",
+  "clear": "Очистити",
+  "loadingLabel": "Завантаження..."
 }

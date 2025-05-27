@@ -35,6 +35,14 @@ export const Header = React.memo(() => {
         path: ROUTE_PATHS.HOME,
         label: t('header.pageNames.allEvents'),
       },
+      {
+        path: ROUTE_PATHS.MYEVENTS,
+        label: t('header.pageNames.myEvents'),
+      },
+      {
+        path: ROUTE_PATHS.PROFILE,
+        label: t('header.pageNames.profile'),
+      },
       ...dynamicBreadcrumbs,
     ];
   }, [pathSegments]);
