@@ -26,3 +26,30 @@ export type EventType = {
   image: string | null;
   registeredCount: number;
 };
+
+export const RegistrationStatus = {
+  REGISTERED: 'registered',
+  ATTENDED: 'attended',
+  CANCELLED: 'cancelled',
+} as const;
+
+export type RegistrationStatus =
+  (typeof RegistrationStatus)[keyof typeof RegistrationStatus];
+
+export const ParticipantRole = {
+  SPEAKER: 'speaker',
+  ATTENDEE: 'attendee',
+} as const;
+
+export type ParticipantRole =
+  (typeof ParticipantRole)[keyof typeof ParticipantRole];
+
+export type EventParticipant = {
+  id: string;
+  user: ProfileUserInfo;
+  userId: string;
+  eventId: string;
+  status: RegistrationStatus;
+  registrationDate: string;
+  role: ParticipantRole;
+};

@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { eventHooks } from '@entities/event/hooks';
+import type { EventType } from '@entities/event/model';
 import { WithRole } from '@entities/user-profile/hooks';
 import { UserRolesEnumValue } from '@entities/user-profile/model';
 import { DateRangePicker } from '@shared/custom-ui';
 import { sharedHooks } from '@shared/hooks';
 import { Button, Input, Spinner } from '@shared/shadcn-ui';
+import { mapEventToFormValues } from '@shared/utils/utils';
 import { type DateRange } from 'react-day-picker';
 import { useTranslation } from 'react-i18next';
 import CreateEventModal from '../create-event/CreateEventModal';
+import ParticipantsEventModal from '../participants-event/ParticipantsModal';
 import { EventCard } from './EventCard';
 
 const EventList = () => {
@@ -23,7 +26,11 @@ const EventList = () => {
     endDate: dateRange?.to ? dateRange.to.toISOString() : '',
   });
 
+  const [editEvent, setEditEvent] = useState<EventType | null>(null);
+
   const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
+  const [isOpenShowParticipantsModal, setIsOpenShowParticipantsModal] =
+    useState(false);
 
   const isLoadingWithMinDelay =
     sharedHooks.useLoadingWithMinDisplayTime(isLoading);
@@ -31,6 +38,16 @@ const EventList = () => {
   const handleClearFilters = () => {
     setDateRange(undefined);
     setSearchValue('');
+  };
+
+  const handleEditEvent = (event: EventType) => {
+    setEditEvent(event);
+    setIsOpenCreateModal(true);
+  };
+
+  const handleShowParticipantModal = (event: EventType) => {
+    setEditEvent(event);
+    setIsOpenShowParticipantsModal(true);
   };
 
   return (
@@ -88,12 +105,29 @@ const EventList = () => {
       {/* Event Grid */}
       {!isLoadingWithMinDelay && events?.length !== 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {events?.map((event) => <EventCard key={event.id} event={event} />)}
+          {events?.map((event) => (
+            <EventCard
+              key={event.id}
+              event={event}
+              onEdit={handleEditEvent}
+              onShowParticipants={handleShowParticipantModal}
+            />
+          ))}
         </div>
+      )}
+
+      {editEvent && (
+        <ParticipantsEventModal
+          open={isOpenShowParticipantsModal}
+          eventId={editEvent.id}
+          onClose={() => setIsOpenShowParticipantsModal(false)}
+        />
       )}
 
       <CreateEventModal
         open={isOpenCreateModal}
+        eventId={editEvent?.id}
+        initialValues={editEvent ? mapEventToFormValues(editEvent) : undefined}
         onClose={() => setIsOpenCreateModal(false)}
       />
     </section>

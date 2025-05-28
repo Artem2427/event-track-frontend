@@ -27,9 +27,11 @@ import PlaceholderImage from '/assets/placeholder-image-event.png';
 
 type Props = {
   event: EventType;
+  onEdit: (event: EventType) => void;
+  onShowParticipants: (event: EventType) => void;
 };
 
-export const EventCard = ({ event }: Props) => {
+export const EventCard = ({ event, onEdit, onShowParticipants }: Props) => {
   const imageSrc = event.image
     ? `${AppEnvironmentService.apiUrl}/${event.image}`
     : PlaceholderImage;
@@ -37,13 +39,11 @@ export const EventCard = ({ event }: Props) => {
   const isAdmin = useHasRole(UserRolesEnumValue.Admin);
 
   const handleEdit = () => {
-    console.log('Edit event', event.id);
-    // Open modal or navigate
+    onEdit(event);
   };
 
   const handleShowParticipants = () => {
-    console.log('Show participants of', event.id);
-    // Open modal or navigate
+    onShowParticipants(event);
   };
 
   return (
@@ -53,7 +53,6 @@ export const EventCard = ({ event }: Props) => {
         alt={event.title}
         className="w-full h-48 object-contain"
       />
-      {/* Dropdown menu in top-right */}
       <div className="absolute top-2 right-2">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -97,12 +96,10 @@ export const EventCard = ({ event }: Props) => {
           </span>
         </div>
 
-        {event.location && (
-          <div className="flex items-center gap-2">
-            <MapPin size={16} />
-            <span>{event.location}</span>
-          </div>
-        )}
+        <div className="flex items-center gap-2">
+          <MapPin size={16} />
+          <span>{event.location ?? '--'}</span>
+        </div>
 
         <div className="flex items-center gap-2">
           <User size={16} />
@@ -114,11 +111,9 @@ export const EventCard = ({ event }: Props) => {
           </span>
         </div>
 
-        {event.price && event.price !== '0' && (
-          <div>
-            <strong>Price:</strong> ${event.price}
-          </div>
-        )}
+        <div>
+          <strong>Price:</strong> {event.price ? `$${event.price}` : '--'}
+        </div>
 
         <Button size="sm" className="mt-2">
           View Details

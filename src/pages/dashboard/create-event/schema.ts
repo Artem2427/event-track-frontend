@@ -27,14 +27,16 @@ export const getEventSchema = (t: TFunction<'translations'>) =>
       .min(1, { message: 'Amount is required' })
       .regex(AMOUNT_REGEX, {
         message: 'Not valid format',
-      }),
+      })
+      .optional(),
 
     minParticipants: z
       .string()
       .min(1, { message: 'Amount is required' })
       .regex(AMOUNT_REGEX, {
         message: 'Not valid format',
-      }),
+      })
+      .optional(),
 
     price: z
       .string()

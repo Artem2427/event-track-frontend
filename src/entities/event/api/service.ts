@@ -1,5 +1,6 @@
+import type { CreateEventSchema } from '@pages/dashboard/create-event/schema';
 import { api } from '@shared/api';
-import type { EventType, EventsQueryParams } from '../model';
+import type { EventParticipant, EventType, EventsQueryParams } from '../model';
 
 class EventService {
   async getAllEvents(queryParams: EventsQueryParams): Promise<EventType[]> {
@@ -12,6 +13,105 @@ class EventService {
 
   async getEventOneById(eventId: string): Promise<Event> {
     const res = await api.get(`/event/${eventId}`);
+
+    return res.data;
+  }
+
+  async createEvent(
+    input: CreateEventSchema,
+    imageFile: File | null,
+  ): Promise<EventType> {
+    const formData = new FormData();
+
+    formData.append('title', input.title);
+    formData.append('startDate', input.startDate);
+    formData.append('endDate', input.endDate);
+    formData.append('isPublic', String(input.isPublic));
+    formData.append('isOffline', String(input.isOffline));
+
+    if (input.description) {
+      formData.append('description', input.description);
+    }
+
+    if (input.location) {
+      formData.append('location', input.location);
+    }
+
+    if (input.minParticipants !== undefined) {
+      formData.append('minParticipants', input.minParticipants.toString());
+    }
+
+    if (input.maxParticipants !== undefined) {
+      formData.append('maxParticipants', input.maxParticipants.toString());
+    }
+
+    if (!input.isPublic && input.price !== undefined) {
+      formData.append('price', input.price.toString());
+    }
+
+    if (imageFile) {
+      formData.append('image', imageFile);
+    }
+
+    const res = await api.post<EventType>('/event', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return res.data;
+  }
+
+  async updateEventById(
+    eventId: string,
+    input: CreateEventSchema,
+    imageFile: File | null,
+  ): Promise<EventType> {
+    const formData = new FormData();
+
+    formData.append('title', input.title);
+    formData.append('startDate', input.startDate);
+    formData.append('endDate', input.endDate);
+    formData.append('isPublic', String(input.isPublic));
+    formData.append('isOffline', String(input.isOffline));
+
+    if (input.description) {
+      formData.append('description', input.description);
+    }
+
+    if (input.location) {
+      formData.append('location', input.location);
+    }
+
+    if (input.minParticipants !== undefined) {
+      formData.append('minParticipants', input.minParticipants.toString());
+    }
+
+    if (input.maxParticipants !== undefined) {
+      formData.append('maxParticipants', input.maxParticipants.toString());
+    }
+
+    if (!input.isPublic && input.price !== undefined) {
+      formData.append('price', input.price.toString());
+    }
+
+    if (imageFile) {
+      formData.append('image', imageFile);
+    }
+
+    const res = await api.patch<EventType>(`/event/${eventId}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return res.data;
+  }
+
+  async getEventParticipants(eventId: string): Promise<EventParticipant[]> {
+    const res = await api.get<EventParticipant[]>(
+      `/registration/${eventId}/participants`,
+    );
 
     return res.data;
   }

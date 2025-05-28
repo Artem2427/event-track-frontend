@@ -44,7 +44,7 @@ export const LoginForm = () => {
   const onSubmit = (values: LogInFormSchema) => {
     signIn.mutate(values, {
       onSuccess: async (response) => {
-        toast(t('loginSuccess'));
+        toast.success(t('loginSuccess'));
         storageService.remove(ACCESS_TOKEN_KEY);
         storageService.set(ACCESS_TOKEN_KEY, response.accessToken);
         await queryClient.invalidateQueries({

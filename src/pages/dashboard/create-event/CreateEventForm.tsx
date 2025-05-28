@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { RequiredLabel } from '@shared/custom-ui';
 import {
   Button,
   Checkbox,
@@ -50,12 +51,19 @@ export const EventForm = ({ initialValues, onSubmit, isSubmitting }: Props) => {
   };
 
   const isPublic = form.watch('isPublic');
+  const isOffline = form.watch('isOffline');
 
   useEffect(() => {
     if (isPublic) {
       form.setValue('price', undefined);
     }
   }, [isPublic, form]);
+
+  useEffect(() => {
+    if (!isOffline) {
+      form.setValue('location', undefined);
+    }
+  }, [isOffline, form]);
 
   return (
     <Form {...form}>
@@ -69,7 +77,7 @@ export const EventForm = ({ initialValues, onSubmit, isSubmitting }: Props) => {
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title</FormLabel>
+              <RequiredLabel required>Title</RequiredLabel>
               <FormControl>
                 <Input {...field} maxLength={255} required />
               </FormControl>
@@ -92,27 +100,13 @@ export const EventForm = ({ initialValues, onSubmit, isSubmitting }: Props) => {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="location"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Location</FormLabel>
-              <FormControl>
-                <Input {...field} maxLength={255} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name="startDate"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Start Date</FormLabel>
+                <RequiredLabel required>Start Date</RequiredLabel>
                 <FormControl>
                   <Input {...field} type="datetime-local" required />
                 </FormControl>
@@ -125,7 +119,7 @@ export const EventForm = ({ initialValues, onSubmit, isSubmitting }: Props) => {
             name="endDate"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>End Date</FormLabel>
+                <RequiredLabel required>End Date</RequiredLabel>
                 <FormControl>
                   <Input {...field} type="datetime-local" required />
                 </FormControl>
@@ -219,6 +213,22 @@ export const EventForm = ({ initialValues, onSubmit, isSubmitting }: Props) => {
             )}
           />
         </div>
+
+        {isOffline && (
+          <FormField
+            control={form.control}
+            name="location"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Location</FormLabel>
+                <FormControl>
+                  <Input {...field} maxLength={255} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
 
         <FormField
           control={form.control}

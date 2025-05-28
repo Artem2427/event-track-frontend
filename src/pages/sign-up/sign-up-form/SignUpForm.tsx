@@ -47,7 +47,7 @@ export const SignUpForm = () => {
   const onSubmit = (values: SignUpFormSchema) => {
     signUp.mutate(values, {
       onSuccess: async (response) => {
-        toast(t('signUpSuccess'));
+        toast.success(t('signUpSuccess'));
         storageService.set(ACCESS_TOKEN_KEY, response.accessToken);
         await queryClient.invalidateQueries({
           queryKey: [USER_PROFILE_QUERY_KEYS.GET_ME_PROFILE],

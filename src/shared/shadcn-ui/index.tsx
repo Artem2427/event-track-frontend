@@ -14,6 +14,7 @@ export * from './card';
 export * from './checkbox';
 export * from './label';
 export * from './textarea';
+export * from './scroll-area';
 // export * from './breadcrumb';
 export * from './select';
 export * from './popover';
