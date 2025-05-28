@@ -29,7 +29,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="flex gap-4 items-start px-4 flex-col">
+    <div className="flex gap-4 items-start px-4 flex-col py-8">
       <div>
         <Avatar className="mr-2 size-25">
           <AvatarImage
