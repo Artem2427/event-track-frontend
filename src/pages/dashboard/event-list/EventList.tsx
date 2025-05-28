@@ -38,7 +38,7 @@ const EventList = () => {
   const handleClearFilters = () => {
     setDateRange(undefined);
     setSearchValue('');
-  };
+  }; 
 
   const handleEditEvent = (event: EventType) => {
     setEditEvent(event);
@@ -56,7 +56,7 @@ const EventList = () => {
       <div className="flex flex-col md:flex-row md:items-end gap-4 mb-6">
         <div className="w-[340px]">
           <label className="block text-sm font-medium mb-1 text-muted-foreground">
-            Search
+            {t('search')}
           </label>
           <Input
             type="search"
@@ -68,7 +68,7 @@ const EventList = () => {
         </div>
         <div className="w-full md:w-auto">
           <label className="block text-sm font-medium mb-1 text-muted-foreground">
-            Date Range
+          {t('dateRange')}
           </label>
           <DateRangePicker
             date={dateRange}
@@ -77,12 +77,12 @@ const EventList = () => {
           />
         </div>
 
-        <Button onClick={handleClearFilters}>Clear</Button>
+        <Button onClick={handleClearFilters}>{t('clear')}</Button>
 
         <WithRole roles={UserRolesEnumValue.Admin}>
           <div className="ml-auto">
             <Button onClick={() => setIsOpenCreateModal(true)}>
-              Create Event
+            {t('createEvent')}
             </Button>
           </div>
         </WithRole>

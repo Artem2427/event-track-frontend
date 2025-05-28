@@ -10,6 +10,8 @@ import {
 import { AuthenticatedLayout } from './AuthenticatedLayout';
 import { GuardedRoute } from './GuardedRoute';
 import { PublicLayout } from './PublicLayout';
+import { MyEventsPageLazy } from '@pages/my-events/MyEvents.page.lazy';
+import { ProfilePageLazy } from '@pages/profile/Profile.page.lazy';
 
 const routes: RouteObject[] = [
   {
@@ -35,6 +37,14 @@ const routes: RouteObject[] = [
           {
             path: ROUTE_PATHS.HOME,
             element: <DashboardPageLazy />,
+          },
+          {
+            path: ROUTE_PATHS.MYEVENTS,
+            element: <MyEventsPageLazy />,
+          },
+          {
+            path: ROUTE_PATHS.PROFILE,
+            element: <ProfilePageLazy />,
           },
         ],
       },

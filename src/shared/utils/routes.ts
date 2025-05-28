@@ -1,7 +1,9 @@
 export const ROUTE_PATHS = {
   HOME: '/',
+  MYEVENTS: '/my-events',
   LOGIN: '/login',
   SIGN_UP: '/sign-up',
+  PROFILE: '/profile'
 } as const;
 
 export const ROUTE_KEYS = {

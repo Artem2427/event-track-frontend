@@ -75,10 +75,26 @@
   "header": {
     "pageNames": {
       "allEvents": "All events",
-      "myEvents": "My events"
+      "myEvents": "My events",
+      "profile": "Profile"
     }
   },
 
   "searchTitle": "Search by title or description",
-  "datePickerPlaceholder": "Pick a date"
+  "datePickerPlaceholder": "Pick a date",
+
+  "userFields": {
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone number",
+    "role": "Role"
+  },
+
+  "logout": "Logout",
+  "search": "Search",
+  "dateRange": "Date range",
+  "createEvent": "Create event",
+  "clear": "Clear",
+  "loadingLabel": "Loading..."
 }
