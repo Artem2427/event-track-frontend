@@ -1,4 +1,4 @@
-import type { UserRolesEnum } from '@entities/user-profile/model';
+import type { UserRolesEnum } from '@entities/user/model';
 
 export type SignInInput = {
   email: string;

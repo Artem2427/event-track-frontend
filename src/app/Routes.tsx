@@ -1,6 +1,9 @@
 import { DashboardPageLazy } from '@pages/dashboard/Dashboard.page.lazy';
 import { LoginPageLazy } from '@pages/login/Login.page.lazy';
+import { MyEventsPageLazy } from '@pages/my-events/MyEvents.page.lazy';
+import { MyProfilePageLazy } from '@pages/my-profile/MyProfile.page.lazy';
 import { SignUpPageLazy } from '@pages/sign-up/SignUp.page.lazy';
+import { UserProfilePageLazy } from '@pages/user-profile/UserProfile.page.lazy';
 import { ROUTE_PATHS } from '@shared/utils/routes';
 import {
   type RouteObject,
@@ -10,8 +13,6 @@ import {
 import { AuthenticatedLayout } from './AuthenticatedLayout';
 import { GuardedRoute } from './GuardedRoute';
 import { PublicLayout } from './PublicLayout';
-import { MyEventsPageLazy } from '@pages/my-events/MyEvents.page.lazy';
-import { ProfilePageLazy } from '@pages/profile/Profile.page.lazy';
 
 const routes: RouteObject[] = [
   {
@@ -39,12 +40,16 @@ const routes: RouteObject[] = [
             element: <DashboardPageLazy />,
           },
           {
-            path: ROUTE_PATHS.MYEVENTS,
+            path: ROUTE_PATHS.MY_EVENTS,
             element: <MyEventsPageLazy />,
           },
           {
             path: ROUTE_PATHS.PROFILE,
-            element: <ProfilePageLazy />,
+            element: <MyProfilePageLazy />,
+          },
+          {
+            path: `${ROUTE_PATHS.PROFILE}/:userId`,
+            element: <UserProfilePageLazy />,
           },
         ],
       },

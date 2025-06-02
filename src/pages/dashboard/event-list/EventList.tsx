@@ -1,17 +1,26 @@
 import { useState } from 'react';
+import { eventService } from '@entities/event/api/service';
 import { eventHooks } from '@entities/event/hooks';
-import type { EventType } from '@entities/event/model';
-import { WithRole } from '@entities/user-profile/hooks';
-import { UserRolesEnumValue } from '@entities/user-profile/model';
+import {
+  EVENT_QUERY_KEYS,
+  type EventType,
+  ParticipantRoleValue,
+  RegistrationStatusValue,
+} from '@entities/event/model';
+import { WithRole } from '@entities/user/hooks';
+import { UserRolesEnumValue } from '@entities/user/model';
+import { useUserProfileStore } from '@entities/user/store';
 import { DateRangePicker } from '@shared/custom-ui';
 import { sharedHooks } from '@shared/hooks';
 import { Button, Input, Spinner } from '@shared/shadcn-ui';
 import { mapEventToFormValues } from '@shared/utils/utils';
+import { useQueryClient } from '@tanstack/react-query';
 import { type DateRange } from 'react-day-picker';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 import CreateEventModal from '../create-event/CreateEventModal';
 import ParticipantsEventModal from '../participants-event/ParticipantsModal';
-import { EventCard } from './EventCard';
+import { EnhancedEventCard } from './EnhancedEventCard';
 
 const EventList = () => {
   const { t } = useTranslation('translations');
@@ -26,6 +35,12 @@ const EventList = () => {
     endDate: dateRange?.to ? dateRange.to.toISOString() : '',
   });
 
+  const registerToEvent = eventHooks.useRegisterToEventMutation();
+
+  const { user } = useUserProfileStore();
+
+  const queryClient = useQueryClient();
+
   const [editEvent, setEditEvent] = useState<EventType | null>(null);
 
   const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
@@ -38,7 +53,7 @@ const EventList = () => {
   const handleClearFilters = () => {
     setDateRange(undefined);
     setSearchValue('');
-  }; 
+  };
 
   const handleEditEvent = (event: EventType) => {
     setEditEvent(event);
@@ -48,6 +63,48 @@ const EventList = () => {
   const handleShowParticipantModal = (event: EventType) => {
     setEditEvent(event);
     setIsOpenShowParticipantsModal(true);
+  };
+
+  const handleParticipate = (event: EventType) => {
+    if (user) {
+      registerToEvent.mutate(
+        {
+          eventId: event.id,
+          role:
+            user.role === 'speaker'
+              ? ParticipantRoleValue.SPEAKER
+              : ParticipantRoleValue.ATTENDEE,
+          status: RegistrationStatusValue.REGISTERED,
+        },
+        {
+          onSuccess: async (response) => {
+            console.log(response, 'response');
+
+            toast.success(t('signUpSuccess'));
+            await Promise.all([
+              queryClient.prefetchQuery({
+                queryKey: [EVENT_QUERY_KEYS.GET_REGISTRATION_ON_EVENTS],
+                queryFn: () => eventService.getRegistrationOnEvents(),
+              }),
+              queryClient.invalidateQueries({
+                queryKey: [EVENT_QUERY_KEYS.GET_ALL_EVENTS],
+              }),
+            ]);
+          },
+          onError: (error) => {
+            toast.error(
+              t(`errors.${error.response?.data.message}`, {
+                defaultValue: t('signUpError'),
+              }),
+              {
+                duration: 5000,
+                richColors: true,
+              },
+            );
+          },
+        },
+      );
+    }
   };
 
   return (
@@ -68,7 +125,7 @@ const EventList = () => {
         </div>
         <div className="w-full md:w-auto">
           <label className="block text-sm font-medium mb-1 text-muted-foreground">
-          {t('dateRange')}
+            {t('dateRange')}
           </label>
           <DateRangePicker
             date={dateRange}
@@ -82,7 +139,7 @@ const EventList = () => {
         <WithRole roles={UserRolesEnumValue.Admin}>
           <div className="ml-auto">
             <Button onClick={() => setIsOpenCreateModal(true)}>
-            {t('createEvent')}
+              {t('createEvent')}
             </Button>
           </div>
         </WithRole>
@@ -106,11 +163,12 @@ const EventList = () => {
       {!isLoadingWithMinDelay && events?.length !== 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {events?.map((event) => (
-            <EventCard
+            <EnhancedEventCard
               key={event.id}
               event={event}
               onEdit={handleEditEvent}
               onShowParticipants={handleShowParticipantModal}
+              onParticipate={handleParticipate}
             />
           ))}
         </div>

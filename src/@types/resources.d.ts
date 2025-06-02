@@ -73,7 +73,8 @@ interface Resources {
       "pageNames": {
         "allEvents": "All events",
         "myEvents": "My events",
-        "profile": "Profile"
+        "profile": "Profile",
+        "userProfile": "User profile"
       }
     },
     "searchTitle": "Search by title or description",

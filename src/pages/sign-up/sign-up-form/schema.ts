@@ -1,4 +1,4 @@
-import { UserRolesEnumValue } from '@entities/user-profile/model';
+import { UserRolesEnumValue } from '@entities/user/model';
 import { type TFunction } from 'i18next';
 import z from 'zod';
 

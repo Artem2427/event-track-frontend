@@ -1,36 +1,31 @@
 import React from 'react';
-import { ProfileLoadStatusValue } from '@entities/user-profile/model';
-import { useUserProfileStore } from '@entities/user-profile/store';
+import { ProfileLoadStatusValue } from '@entities/user/model';
+import { useUserProfileStore } from '@entities/user/store';
 import { useTheme } from '@shared/providers/theme.provider';
-import { ROUTE_PATHS } from '@shared/utils/routes';
+import { routeTitles } from '@shared/utils/routes';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
+import { matchPath, useLocation } from 'react-router-dom';
 import { AvatarDropdown } from './AvatarDropdown';
 import LanguageSwitcher from './LanguageSwitcher';
 import { ThemeSwitcher } from './ThemeSwitcher';
 import DarkLogoSrc from '/dark-logo.svg';
 import LightLogoSrc from '/light-logo.svg';
 
-export const Header = React.memo(() => {
-  const location = useLocation();
-  const { theme } = useTheme();
+const usePageTitle = () => {
   const { t } = useTranslation('translations');
+  const location = useLocation();
+
+  const match = routeTitles.find(({ path }) =>
+    matchPath(path, location.pathname),
+  );
+  return match ? t(match.titleKey, '') : '';
+};
+
+export const Header = React.memo(() => {
+  const { theme } = useTheme();
   const { status } = useUserProfileStore();
 
-  const getPageName = (pathname: string) => {
-    switch (pathname) {
-      case ROUTE_PATHS.HOME:
-        return t('header.pageNames.allEvents');
-      case ROUTE_PATHS.MYEVENTS:
-        return t('header.pageNames.myEvents');
-      case ROUTE_PATHS.PROFILE:
-        return t('header.pageNames.profile');
-      default:
-        return '';
-    }
-  };
-
-  const pageTitle = getPageName(location.pathname);
+  const pageTitle = usePageTitle();
 
   const isAuthenticated = status === ProfileLoadStatusValue.AUTHORIZED;
 

@@ -9,6 +9,7 @@ import {
   DialogTitle,
 } from '@shared/shadcn-ui/dialog';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const ParticipantsEventModal = ({
   open,
@@ -52,9 +53,10 @@ const ParticipantsEventModal = ({
             {data.map((participant: EventParticipant) => {
               const fullName = `${participant.user.firstName} ${participant.user.lastName}`;
               return (
-                <div
+                <Link
+                  to={`/profile/${participant.userId}`}
                   key={participant.id}
-                  className="flex items-center gap-4 border-b pb-3"
+                  className="flex items-center gap-4 border-b pb-3 hover:bg-muted/30 transition rounded px-2 py-1"
                 >
                   <Avatar>
                     <AvatarImage
@@ -72,7 +74,7 @@ const ParticipantsEventModal = ({
                       {participant.role} • {participant.status}
                     </span>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </ScrollArea>

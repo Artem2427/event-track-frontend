@@ -1,6 +1,12 @@
 import type { CreateEventSchema } from '@pages/dashboard/create-event/schema';
 import { api } from '@shared/api';
-import type { EventParticipant, EventType, EventsQueryParams } from '../model';
+import type {
+  EventParticipant,
+  EventType,
+  EventsQueryParams,
+  RegisterEvent,
+  RegisterToEventInput,
+} from '../model';
 
 class EventService {
   async getAllEvents(queryParams: EventsQueryParams): Promise<EventType[]> {
@@ -112,6 +118,18 @@ class EventService {
     const res = await api.get<EventParticipant[]>(
       `/registration/${eventId}/participants`,
     );
+
+    return res.data;
+  }
+
+  async getRegistrationOnEvents(): Promise<string[]> {
+    const res = await api.get<string[]>('/registration/my-events');
+
+    return res.data;
+  }
+
+  async registerToEvent(input: RegisterToEventInput): Promise<RegisterEvent> {
+    const res = await api.post<RegisterEvent>('/registration', input);
 
     return res.data;
   }

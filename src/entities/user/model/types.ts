@@ -9,15 +9,15 @@ export type ProfileLoadStatus =
   (typeof ProfileLoadStatusValue)[keyof typeof ProfileLoadStatusValue];
 
 export const UserRolesEnumValue = {
-  Admin: 'admin', 
-  Participant: 'participant', 
+  Admin: 'admin',
+  Participant: 'participant',
   Speaker: 'speaker',
 } as const;
 
 export type UserRolesEnum =
   (typeof UserRolesEnumValue)[keyof typeof UserRolesEnumValue];
 
-export type ProfileUserInfo = {
+export type UserInfo = {
   id: string;
   createdAt: string;
   updatedAt: string;

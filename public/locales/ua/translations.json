@@ -76,7 +76,8 @@
     "pageNames": {
       "allEvents": "Всі події",
       "myEvents": "Мої події",
-      "profile": "Профіль"
+      "profile": "Профіль",
+      "userProfile": "Профіль користувача"
     }
   },
 

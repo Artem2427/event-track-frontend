@@ -1,6 +1,6 @@
 import { type BaseSyntheticEvent, useEffect, useMemo } from 'react';
 import { authHooks } from '@entities/auth/hooks';
-import { USER_PROFILE_QUERY_KEYS } from '@entities/user-profile/model';
+import { USER_QUERY_KEYS } from '@entities/user/model';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { storageService } from '@shared/services/storage.service';
 import {
@@ -50,7 +50,7 @@ export const SignUpForm = () => {
         toast.success(t('signUpSuccess'));
         storageService.set(ACCESS_TOKEN_KEY, response.accessToken);
         await queryClient.invalidateQueries({
-          queryKey: [USER_PROFILE_QUERY_KEYS.GET_ME_PROFILE],
+          queryKey: [USER_QUERY_KEYS.GET_ME_PROFILE],
         });
         navigate('/');
       },

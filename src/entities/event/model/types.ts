@@ -1,4 +1,4 @@
-import type { ProfileUserInfo } from '@entities/user-profile/model';
+import type { UserInfo } from '@entities/user/model';
 
 export type EventsQueryParams = {
   startDate: string;
@@ -20,33 +20,48 @@ export type EventType = {
   minParticipants: number;
   isOffline: boolean;
   price: string;
-  admin: ProfileUserInfo;
+  admin: UserInfo;
   adminId: string;
   deletedAt: string | null;
   image: string | null;
   registeredCount: number;
 };
 
-export const RegistrationStatus = {
+export const RegistrationStatusValue = {
   REGISTERED: 'registered',
   ATTENDED: 'attended',
   CANCELLED: 'cancelled',
 } as const;
 
 export type RegistrationStatus =
-  (typeof RegistrationStatus)[keyof typeof RegistrationStatus];
+  (typeof RegistrationStatusValue)[keyof typeof RegistrationStatusValue];
 
-export const ParticipantRole = {
+export const ParticipantRoleValue = {
   SPEAKER: 'speaker',
   ATTENDEE: 'attendee',
 } as const;
 
 export type ParticipantRole =
-  (typeof ParticipantRole)[keyof typeof ParticipantRole];
+  (typeof ParticipantRoleValue)[keyof typeof ParticipantRoleValue];
 
 export type EventParticipant = {
   id: string;
-  user: ProfileUserInfo;
+  user: UserInfo;
+  userId: string;
+  eventId: string;
+  status: RegistrationStatus;
+  registrationDate: string;
+  role: ParticipantRole;
+};
+
+export type RegisterToEventInput = {
+  status: RegistrationStatus;
+  eventId: string;
+  role: ParticipantRole;
+};
+
+export type RegisterEvent = {
+  id: string;
   userId: string;
   eventId: string;
   status: RegistrationStatus;

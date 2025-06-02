@@ -1,6 +1,8 @@
 import { useCreateEventMutation } from './useCreateEventMutation';
 import { useGetAllEventsQuery } from './useGetAllEventsQuery';
 import { useGetEventParticipantsQuery } from './useGetEventParticipants';
+import { useGetRegistrationOnEventsQuery } from './useGetRegistrationOnEventsQuery';
+import { useRegisterToEventMutation } from './useRegisterToEventMutation';
 import { useUpdateEventMutation } from './useUpdateEventMutation';
 
 export const eventHooks = {
@@ -8,4 +10,6 @@ export const eventHooks = {
   useCreateEventMutation,
   useUpdateEventMutation,
   useGetEventParticipantsQuery,
+  useGetRegistrationOnEventsQuery,
+  useRegisterToEventMutation,
 };

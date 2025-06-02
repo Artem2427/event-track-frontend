@@ -1,5 +1,5 @@
-import { ProfileLoadStatusValue } from '@entities/user-profile/model';
-import { useUserProfileStore } from '@entities/user-profile/store';
+import { ProfileLoadStatusValue } from '@entities/user/model';
+import { useUserProfileStore } from '@entities/user/store';
 import { Header } from '@features/header/Header';
 import { Preloader } from '@shared/custom-ui';
 import { ROUTE_PATHS } from '@shared/utils/routes';

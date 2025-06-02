@@ -2,15 +2,17 @@ import { create } from 'zustand';
 import {
   type ProfileLoadStatus,
   ProfileLoadStatusValue,
-  type ProfileUserInfo,
+  type UserInfo,
 } from '../model';
 
 export type UserProfileStore = {
-  user: ProfileUserInfo | null;
+  user: UserInfo | null;
   status: ProfileLoadStatus;
-  setUser: (user: ProfileUserInfo) => void;
+  setUser: (user: UserInfo) => void;
   setStatus: (status: ProfileLoadStatus) => void;
   reset: () => void;
+  registrationEventIds: string[];
+  setRegistrationEventIds: (eventIds: string[]) => void;
 };
 
 export const useUserProfileStore = create<UserProfileStore>((set) => ({
@@ -23,4 +25,7 @@ export const useUserProfileStore = create<UserProfileStore>((set) => ({
       user: null,
       status: ProfileLoadStatusValue.PENDING,
     }),
+  registrationEventIds: [],
+  setRegistrationEventIds: (eventIds) =>
+    set({ registrationEventIds: eventIds }),
 }));
