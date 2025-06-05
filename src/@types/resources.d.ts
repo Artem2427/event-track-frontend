@@ -14,8 +14,8 @@ interface Resources {
     "signUpLastName": "Last Name",
     "signUpLastNamePlaceholder": "Doe",
     "signUpButton": "Create Account",
-    "signUpSuccess": "Registration successful!",
-    "signUpError": "Something went wrong during registration!",
+    "signUpSuccess": "Signed up succesfully",
+    "signUpError": "Something went wrong during event sign up",
     "alreadyHaveAccount": "Already have an account?",
     "logInLink": "Log in",
     "validation": {
@@ -91,7 +91,34 @@ interface Resources {
     "dateRange": "Date range",
     "createEvent": "Create event",
     "clear": "Clear",
-    "loadingLabel": "Loading..."
+    "loadingLabel": "Loading...",
+    "participants": {
+      "title": "Participants",
+      "error": "Failed to load participants",
+      "empty": "No participants yet"
+    },
+    "event": {
+      "alreadyParticipated": "You participated",
+      "eventEnded": "Event ended",
+      "participating": "You are participating",
+      "ongoing": "Event in progress",
+      "alreadyParticipating": "Already participating",
+      "participate": "Participate",
+      "status": {
+        "finished": "Finished",
+        "ongoing": "Ongoing"
+      },
+      "showParticipants": "Show Participants",
+      "signOut": "Unsubscribe"
+    },
+    "common": {
+      "edit": "Edit",
+      "public": "Public",
+      "private": "Private",
+      "participants": "participants",
+      "registered": "registered",
+      "price": "Price"
+    }
   }
 }
 
