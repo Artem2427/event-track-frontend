@@ -94,7 +94,7 @@ const EventList = () => {
           onError: (error) => {
             toast.error(
               t(`errors.${error.response?.data.message}`, {
-                defaultValue: t('signUpError'),
+                defaultValue: t('signUpError'), 
               }),
               {
                 duration: 5000,
@@ -109,7 +109,6 @@ const EventList = () => {
 
   return (
     <section className="py-8 px-4 w-full">
-      {/* Filters */}
       <div className="flex flex-col md:flex-row md:items-end gap-4 mb-6">
         <div className="w-[340px]">
           <label className="block text-sm font-medium mb-1 text-muted-foreground">
@@ -145,21 +144,18 @@ const EventList = () => {
         </WithRole>
       </div>
 
-      {/* Loading */}
       {isLoadingWithMinDelay && (
         <div className="flex items-center justify-center min-h-[calc(100vh-280px)]">
           <Spinner size="large" />
         </div>
       )}
 
-      {/* No Results */}
       {!isLoadingWithMinDelay && events?.length === 0 && (
         <div className="text-center text-muted-foreground mt-10">
           <p className="text-lg">{t('errors.noEventsFound')}</p>
         </div>
       )}
 
-      {/* Event Grid */}
       {!isLoadingWithMinDelay && events?.length !== 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {events?.map((event) => (

@@ -13,8 +13,8 @@
   "signUpFirstNamePlaceholder": "Іван",
   "signUpLastName": "Прізвище",
   "signUpLastNamePlaceholder": "Шевченко",
-  "signUpSuccess": "Реєстрація пройшла успішно!",
-  "signUpError": "Щось пішло не так під час реєстрації!",
+  "signUpSuccess": "Запис успішний",
+  "signUpError": "Не вдалось записатися на подію",
   "signUpButton": "Створити акаунт",
   "alreadyHaveAccount": "Вже маєте акаунт?",
   "logInLink": "Увійти",
@@ -97,5 +97,34 @@
   "dateRange": "Дата",
   "createEvent": "Створити подію",
   "clear": "Очистити",
-  "loadingLabel": "Завантаження..."
+  "loadingLabel": "Завантаження...",
+
+  "participants": {
+    "title": "Учасники",
+    "error": "Помилка при завантаженні учасників",
+    "empty": "Немає учасників"
+  },
+
+  "event": {
+    "alreadyParticipated": "Ви брали участь",
+    "eventEnded": "Подія завершена",
+    "participating": "Ви берете участь",
+    "ongoing": "Подія триває",
+    "alreadyParticipating": "Ви вже берете участь",
+    "participate": "Взяти участь",
+    "status": {
+      "finished": "Завершено",
+      "ongoing": "Триває"
+    },
+    "showParticipants": "Показати учасників",
+    "signOut": "Відпісатись"
+  },
+  "common": {
+    "edit": "Редагувати",
+    "public": "Відкрита",
+    "private": "Приватна",
+    "participants": "учасників",
+    "registered": "зареєстровано",
+    "price": "Ціна"
+  }
 }

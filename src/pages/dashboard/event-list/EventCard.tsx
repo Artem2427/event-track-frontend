@@ -24,6 +24,7 @@ import {
   User,
 } from 'lucide-react';
 import PlaceholderImage from '/assets/placeholder-image-event.png';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   event: EventType;
@@ -46,12 +47,13 @@ export const EventCard = ({
     ? `${AppEnvironmentService.apiUrl}/${event.image}`
     : PlaceholderImage;
 
-  // Перевіряємо чи подія вже завершилась
   const now = new Date();
   const eventEndDate = new Date(event.endDate);
   const eventStartDate = new Date(event.startDate);
   const isEventPast = eventEndDate < now;
   const isEventOngoing = eventStartDate <= now && eventEndDate >= now;
+
+  const { t } = useTranslation('translations');
 
   const handleEdit = () => {
     onEdit(event);
@@ -72,13 +74,12 @@ export const EventCard = ({
       return null;
     }
 
-    // Якщо подія вже завершилась
     if (isEventPast) {
       if (isParticipant) {
         return (
           <Button size="sm" variant="outline" disabled className="mt-2">
             <Check className="w-4 h-4 mr-2" />
-            Ви брали участь
+            {t('event.alreadyParticipated')}
           </Button>
         );
       }
@@ -90,42 +91,46 @@ export const EventCard = ({
           className="mt-2 opacity-50"
         >
           <Clock className="w-4 h-4 mr-2" />
-          Подія завершена
+          {t('event.eventEnded')}
         </Button>
       );
     }
 
-    // Якщо подія триває зараз
     if (isEventOngoing) {
       if (isParticipant) {
         return (
           <Button size="sm" variant="outline" disabled className="mt-2">
             <Check className="w-4 h-4 mr-2" />
-            Ви берете участь
+            {t('event.participating')}
           </Button>
         );
       }
       return (
         <Button size="sm" variant="outline" disabled className="mt-2">
           <Clock className="w-4 h-4 mr-2" />
-          Подія триває
+          {t('event.ongoing')}
         </Button>
       );
     }
 
-    // Майбутня подія
     if (isParticipant) {
       return (
-        <Button size="sm" variant="outline" disabled className="mt-2">
-          <Check className="w-4 h-4 mr-2" />
-          Ви вже берете участь
-        </Button>
+        <div className="flex gap-10">
+          <Button size="sm" variant="outline" disabled className="mt-2">
+            <Check className="w-4 h-4 mr-2" />
+            {t('event.alreadyParticipating')}
+          </Button>
+          <Button size="sm" variant="outline" disabled className="mt-2">
+            <Check className="w-4 h-4 mr-2" />
+            {t('event.signOut')}
+          </Button>
+        </div>
       );
     }
 
     return (
       <Button size="sm" onClick={handleParticipate} className="mt-2">
-        Взяти участь
+        {t('event.participate')}
       </Button>
     );
   };
@@ -135,7 +140,7 @@ export const EventCard = ({
       return (
         <Badge variant="secondary" className="bg-gray-100 text-gray-600">
           <Clock size={14} className="mr-1" />
-          Завершено
+          {t('event.status.finished')}
         </Badge>
       );
     }
@@ -144,7 +149,7 @@ export const EventCard = ({
       return (
         <Badge variant="destructive" className="bg-green-100 text-green-700">
           <Clock size={14} className="mr-1" />
-          Триває
+          {t('event.status.ongoing')}
         </Badge>
       );
     }
@@ -170,10 +175,10 @@ export const EventCard = ({
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem onClick={handleShowParticipants}>
-              Show Participants
+              {t('event.showParticipants')}
             </DropdownMenuItem>
             {isAdmin && (
-              <DropdownMenuItem onClick={handleEdit}>Edit</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleEdit}>{t('common.edit')}</DropdownMenuItem>
             )}
           </DropdownMenuContent>
         </DropdownMenu>
@@ -189,11 +194,11 @@ export const EventCard = ({
             <Badge variant={event.isPublic ? 'default' : 'destructive'}>
               {event.isPublic ? (
                 <div className="flex items-center gap-1">
-                  <Unlock size={14} /> Public
+                  <Unlock size={14} /> {t('common.public')}
                 </div>
               ) : (
                 <div className="flex items-center gap-1">
-                  <Lock size={14} /> Private
+                  <Lock size={14} /> {t('common.private')}
                 </div>
               )}
             </Badge>
@@ -221,13 +226,13 @@ export const EventCard = ({
           <span>
             {event.registeredCount}
             {event.maxParticipants
-              ? ` / ${event.maxParticipants} participants`
-              : ' registered'}
+              ? ` / ${event.maxParticipants} ${t('common.participants')}`
+              : t('common.registered')}
           </span>
         </div>
 
         <div>
-          <strong>Price:</strong> {event.price ? `$${event.price}` : '--'}
+          <strong>{t('common.price')}</strong> {event.price ? `$${event.price}` : '--'}
         </div>
 
         {renderParticipationButton()}

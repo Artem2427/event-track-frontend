@@ -33,7 +33,7 @@ const ParticipantsEventModal = ({
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-xl">
         <DialogHeader>
-          <DialogTitle>{t('participants.title', 'Participants')}</DialogTitle>
+          <DialogTitle>{t('participants.title')}</DialogTitle>
         </DialogHeader>
 
         {isLoading ? (
@@ -42,11 +42,11 @@ const ParticipantsEventModal = ({
           </div>
         ) : isError ? (
           <p className="text-sm text-red-500">
-            {t('participants.error', 'Failed to load participants')}
+            {t('participants.error')}
           </p>
         ) : !data?.length ? (
           <p className="text-sm text-muted-foreground">
-            {t('participants.empty', 'No participants yet')}
+            {t('participants.empty')}
           </p>
         ) : (
           <ScrollArea className="max-h-[400px] space-y-4">
