@@ -27,7 +27,7 @@ export const Header = React.memo(() => {
 
   const pageTitle = usePageTitle();
 
-  const isAuthenticated = status === ProfileLoadStatusValue.AUTHORIZED;
+  const isAuthenticated = status !== ProfileLoadStatusValue.AUTHORIZED;
 
   return (
     <div className="sticky top-0 z-50 p-4 w-full bg-sidebar h-16 flex justify-between items-center">
